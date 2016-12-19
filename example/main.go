@@ -31,8 +31,11 @@ func main() {
 			defer raw.Close()
 
 			b, err := ioutil.ReadAll(raw)
+
+			fmt.Println("----------------")
 			fmt.Printf("%#v\n", string(b))
+			fmt.Println("----------------")
 		}
-		time.Sleep(time.Second * 1)
+		time.Sleep(time.Second * 60)
 	}
 }
