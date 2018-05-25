@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	baseURL, _ := url.Parse("http://pastebin.com/")
+	baseURL, _ := url.Parse("https://scrape.pastebin.com/")
 
 	pc := pastebin.New(baseURL)
 
