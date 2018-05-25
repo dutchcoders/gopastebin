@@ -140,7 +140,7 @@ func (pc *PastebinClient) Scrape(*context.Context) (*Scrape, error) {
 */
 
 func (pc *PastebinClient) Recent(size int) ([]Paste, error) {
-	req, err := pc.NewRequest("GET", "/api_scraping.php")
+	req, err := pc.NewRequest("GET", fmt.Sprintf("/api_scraping.php?limit=%d", size))
 	if err != nil {
 		return nil, err
 	}
