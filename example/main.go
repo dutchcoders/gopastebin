@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/dutchcoders/gopastebin"
 	"io/ioutil"
@@ -20,7 +21,13 @@ func main() {
 		}
 
 		for _, paste := range pastes {
-			fmt.Printf("%#v\n", paste)
+			fmt.Println("----------------")
+			fmt.Println("Scrape URL: ", paste.ScrapeURL)
+			fmt.Println("Full URL: ", paste.FullURL)
+			fmt.Println("Key: ", paste.Key)
+			fmt.Println("Title: ", paste.Title)
+			fmt.Println("User: ", paste.User)
+			fmt.Println("Syntax: ", paste.Syntax)
 
 			raw, err := pc.GetRaw(paste.Key)
 			if err != nil {
@@ -31,10 +38,11 @@ func main() {
 			defer raw.Close()
 
 			b, err := ioutil.ReadAll(raw)
+			b = bytes.Replace([]byte(b), []byte(`\r\n`), []byte("\n"), -1)
+			b = bytes.Replace([]byte(b), []byte(`\n`), []byte("\n"), -1)
 
 			fmt.Println("----------------")
-			fmt.Printf("%#v\n", string(b))
-			fmt.Println("----------------")
+			fmt.Printf("%s\n", b)
 		}
 		time.Sleep(time.Second * 60)
 	}
